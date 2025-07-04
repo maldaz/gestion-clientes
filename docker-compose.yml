@@ -1,0 +1,39 @@
+version: '3.9'
+
+services:
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: "TuPasswordSegura1234!"
+      ACCEPT_EULA: "Y"
+    volumes:
+      - sqlserverdata:/var/opt/mssql
+
+  auth-service:
+    build:
+      context: ./auth-dotnet
+    container_name: auth-service
+    ports:
+      - "5000:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=AuthDB;User=sa;Password=TuPasswordSegura1234!
+      - Jwt__Key=ClaveSuperSecreta1234!
+    depends_on:
+      - sqlserver
+
+  clientes-service:
+    build:
+      context: ./clientes-php
+    container_name: clientes-service
+    ports:
+      - "5001:80"
+    depends_on:
+      - sqlserver
+
+volumes:
+  sqlserverdata:

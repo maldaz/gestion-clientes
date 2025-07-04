@@ -1,0 +1,24 @@
+{
+    "name": "gestion/clientes-pedidos",
+    "description": "Microservicio de clientes y pedidos",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Gestion\\ClientesPedidos\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Miguel Aldaz",
+            "email": "miguel@correo.com"
+        }
+    ],
+    "require": {
+        "slim/slim": "^4.11",
+        "slim/psr7": "^1.7",
+        "vlucas/phpdotenv": "^5.6",
+        "firebase/php-jwt": "^6.11",
+        "illuminate/database": "^12.19",
+        "illuminate/events": "^12.19"
+    }
+}
